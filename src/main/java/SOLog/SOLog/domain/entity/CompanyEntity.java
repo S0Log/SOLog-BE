@@ -1,13 +1,11 @@
 package SOLog.SOLog.domain.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.util.Date;
 
@@ -18,12 +16,19 @@ import java.util.Date;
 @Builder
 public class CompanyEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String companyName;
 
     private Date listedDate;
 
+    @Column(name = "overview",length = 1000)
     private String overview;
+
+    @ColumnDefault("'코스피'")
+    private String marketType;
+
+    private String capitalAmount;
+
+    private Date overviewDate;
 
 
 }
