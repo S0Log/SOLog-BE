@@ -11,16 +11,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Identifier {
+public class IdentifierEntity {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-
+    private String companyNum;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "companyName")
     private CompanyEntity company;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "companyNum")
-    private OpinionEntity opinion;
+
 }
