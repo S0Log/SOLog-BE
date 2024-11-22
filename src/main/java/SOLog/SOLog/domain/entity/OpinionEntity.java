@@ -24,5 +24,5 @@ public class OpinionEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "companyNum")
-    private String companyNum;
+    private IdentifierEntity companyNum;
 }
