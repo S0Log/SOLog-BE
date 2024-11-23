@@ -35,9 +35,9 @@ public class CompanyFinancialEntity {
     private String PER;
     private String PBR;
     private String ROE;
-    private Long totalAsset; //자산총계
-    private Long totalEquity;//자본총계
-    private Long totalLiabilities;//부채총계
+    private Double totalAsset; //자산총계
+    private Double totalEquity;//자본총계
+    private Double totalLiabilities;//부채총계
     private String operatingMargin;//영업이익 경쟁사용
     private String revenueGrowthRate;//매출액 증가율
     private String marketCapital;//시가총액
