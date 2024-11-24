@@ -19,7 +19,7 @@ public class PriceDiffEntity {
     private Long id;
 
     private Date date;
-    private Long diff;
+    private Double diff;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "companyName")
