@@ -14,14 +14,14 @@ import java.util.List;
 public class ChartController {
     private final ChartServiceImpl chartService;
 
-    @PostMapping("/select-duration-type")//차트분석탭 차트
-    public List<ChartDataResponseDto> selectDurationChart(@RequestBody DurationChartRequestDto requestDto){
+    @GetMapping("/select-duration-type")//차트분석탭 차트
+    public List<ChartDataResponseDto> selectDurationChart(DurationChartRequestDto requestDto){
 
         return chartService.getCompanyStockData(requestDto.getCompanyName(),requestDto.getDurationType());
 
     }
-    @PostMapping("/company-detail")//차트분석탭 차트
-    public List<ChartDataResponseDto> companyDetailChart(@RequestBody DurationChartRequestDto requestDto){
+    @GetMapping("/company-detail")//차트분석탭 차트
+    public List<ChartDataResponseDto> companyDetailChart(DurationChartRequestDto requestDto){
 
         return chartService.getCompanyStockDataSetStart(requestDto.getCompanyName(),requestDto.getDurationType());
 
