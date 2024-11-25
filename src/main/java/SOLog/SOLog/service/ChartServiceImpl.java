@@ -6,7 +6,10 @@ import SOLog.SOLog.repository.StockDataRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,12 +24,13 @@ public class ChartServiceImpl implements ChartService {
         // companyName과 durationType을 기준으로 데이터를 조회
         List<StockDataEntity> stockDataEntities = stockDataRepository.findByCompany_CompanyNameAndDurationType(companyName, durationType);
 
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         // 조회된 데이터를 ChartDataResponseDto로 변환
         return stockDataEntities.stream()
                 .sorted(Comparator.comparing(StockDataEntity::getDate))
                 .map(stockDataEntity -> new ChartDataResponseDto(
                         stockDataEntity.getCompany().getCompanyName(),
-                        stockDataEntity.getDate(),
+                        dateFormat.format(stockDataEntity.getDate()),
                         stockDataEntity.getOpenPrice(),
                         stockDataEntity.getClosePrice(),
                         stockDataEntity.getHighPrice(),
@@ -44,6 +48,7 @@ public class ChartServiceImpl implements ChartService {
 
         // companyName과 durationType을 기준으로 데이터를 조회
         List<StockDataEntity> stockDataEntities = stockDataRepository.findByCompany_CompanyNameAndDurationType(companyName, durationType);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         // 2017년 09월 01일 이후의 데이터만 필터링
         return stockDataEntities.stream()
@@ -51,7 +56,7 @@ public class ChartServiceImpl implements ChartService {
                 .sorted(Comparator.comparing(StockDataEntity::getDate))
                 .map(stockDataEntity -> new ChartDataResponseDto(
                         stockDataEntity.getCompany().getCompanyName(),
-                        stockDataEntity.getDate(),
+                        dateFormat.format(stockDataEntity.getDate()),
                         stockDataEntity.getOpenPrice(),
                         stockDataEntity.getClosePrice(),
                         stockDataEntity.getHighPrice(),
