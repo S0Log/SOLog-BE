@@ -2,6 +2,7 @@ package SOLog.SOLog.controller;
 
 import SOLog.SOLog.domain.dto.CompanyOverviewDto;
 import SOLog.SOLog.domain.dto.MarketShareDto;
+import SOLog.SOLog.domain.dto.SalesTrendRatioDto;
 import SOLog.SOLog.service.CompanyInfoService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -28,5 +29,11 @@ public class CompanyInfoController {
     @Operation(summary = "시장점유율", description = "기업정보 내 시장점유율 정보 반환")
     public List<MarketShareDto> marketShare(@PathVariable String companyName) {
         return companyInfoService.getMarketShare(companyName);
+    }
+
+    @GetMapping("/{companyName}/salesTrendRatio")
+    @Operation(summary = "매출비중추이", description = "기업정보 내 매출비중추이 정보 반환")
+    public List<SalesTrendRatioDto> salesTrendRatio(@PathVariable String companyName) {
+        return companyInfoService.getSalesTrendRatio(companyName);
     }
 }
