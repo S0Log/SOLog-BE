@@ -9,11 +9,11 @@ import java.util.Date;
 @AllArgsConstructor
 public class ChartDataResponseDto {
     private String companyName;
-    private Date date;
-    private Long openPrice;
-    private Long closePrice;
-    private Long highPrice;
-    private Long lowPrice;
+    private String date;
+    private Long open;
+    private Long close;
+    private Long high;
+    private Long low;
     private Long volume;
 
 
