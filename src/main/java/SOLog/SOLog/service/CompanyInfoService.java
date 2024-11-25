@@ -47,7 +47,7 @@ public class CompanyInfoService {
         List<SalesTrendRatioEntity> salesTrendRatio = salesTrendRatioRepository.findTop5ByCompanyName(companyName, pageable).getContent();
 
         return salesTrendRatio.stream()
-                .map(entity -> new SalesTrendRatioDto(entity.getDate(), entity.getProductName(), entity.getSalesPercent()))
+                .map(entity -> new SalesTrendRatioDto(entity.getDate(), entity.getProductName().replace("?", " "), entity.getSalesPercent()))
                 .collect(Collectors.toList());
     }
 }
