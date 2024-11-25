@@ -17,7 +17,7 @@ public class CompanyInfoController {
 
     @GetMapping("/companyOverview/{companyName}")
     @Operation(summary = "기업 개요", description = "기업정보 내 기업개요 정보 반환")
-    public CompanyOverviewDto CompanyOverview(@PathVariable String companyName) {
+    public CompanyOverviewDto companyOverview(@PathVariable String companyName) {
         return companyInfoService.getCompanyOverview(companyName);
     }
 }
