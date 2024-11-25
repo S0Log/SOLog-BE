@@ -18,6 +18,7 @@ public class CompanyInfoService {
     private final CompanyInfoRepository companyInfoRepository;
     private final MarketShareRepository marketShareRepository;
 
+    // 기업개요
     public CompanyOverviewDto getCompanyOverview(String companyName) {
         CompanyEntity company = companyInfoRepository.findById(companyName)
                 .orElseThrow(() -> new IllegalArgumentException("Company not found with name: " + companyName));

@@ -18,7 +18,7 @@ import java.util.List;
 public class CompanyInfoController {
     private final CompanyInfoService companyInfoService;
 
-    @GetMapping("/companyOverview/{companyName}")
+    @GetMapping("/{companyName}/companyOverview")
     @Operation(summary = "기업 개요", description = "기업정보 내 기업개요 정보 반환")
     public CompanyOverviewDto companyOverview(@PathVariable String companyName) {
         return companyInfoService.getCompanyOverview(companyName);
