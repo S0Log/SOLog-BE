@@ -2,6 +2,7 @@ package SOLog.SOLog.service;
 
 import SOLog.SOLog.domain.dto.CompetitorBalanceSheetDto;
 import SOLog.SOLog.domain.dto.CompetitorPriceDto;
+import SOLog.SOLog.domain.dto.CompetitorProfitabilityDto;
 import SOLog.SOLog.domain.dto.CompetitorValuationDto;
 import SOLog.SOLog.domain.entity.CompanyFinancialEntity;
 import SOLog.SOLog.repository.CompanyFinancialRepository;
@@ -81,5 +82,28 @@ public class CompetitorInfoService {
         }
 
         return competitorValuationDtos;
+    }
+
+    public List<CompetitorProfitabilityDto> getCompetitorProfitability(String companyName) {
+        List<String> competitorCompanies = relationRepository.findCompetitorNamesByCompanyName(companyName);
+        competitorCompanies.add(0, companyName);
+
+        List<CompetitorProfitabilityDto> competitorProfitabilityDtos = new ArrayList<>();
+
+        for(String company: competitorCompanies) {
+            CompanyFinancialEntity financialEntity = companyFinancialRepository.findByCompanyName(company);
+            if(financialEntity != null) {
+                competitorProfitabilityDtos.add(
+                        new CompetitorProfitabilityDto(
+                                company,
+                                financialEntity.getROE(),
+                                financialEntity.getOperatingMargin(),
+                                financialEntity.getRevenueGrowthRate()
+                        )
+                );
+            }
+        }
+
+        return competitorProfitabilityDtos;
     }
 }
