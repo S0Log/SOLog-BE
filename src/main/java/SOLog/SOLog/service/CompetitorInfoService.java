@@ -1,5 +1,6 @@
 package SOLog.SOLog.service;
 
+import SOLog.SOLog.domain.dto.CompetitorBalanceSheetDto;
 import SOLog.SOLog.domain.dto.CompetitorPriceDto;
 import SOLog.SOLog.domain.entity.CompanyFinancialEntity;
 import SOLog.SOLog.repository.CompanyFinancialRepository;
@@ -34,5 +35,28 @@ public class CompetitorInfoService {
         }
 
         return competitorPriceDtos;
+    }
+
+    public List<CompetitorBalanceSheetDto> getCompetitorBalanceSheet(String companyName) {
+        List<String> competitorCompanies = relationRepository.findCompetitorNamesByCompanyName(companyName);
+        competitorCompanies.add(0, companyName);
+
+        List<CompetitorBalanceSheetDto> competitorBalanceSheetDtos = new ArrayList<>();
+
+        for(String company : competitorCompanies) {
+            CompanyFinancialEntity financialEntity = companyFinancialRepository.findByCompanyName(company);
+            if (financialEntity != null) {
+                competitorBalanceSheetDtos.add(
+                        new CompetitorBalanceSheetDto(
+                                company,
+                                financialEntity.getTotalEquity(),
+                                financialEntity.getTotalLiabilities(),
+                                financialEntity.getOperIncome()
+                        )
+                );
+            }
+        }
+
+        return competitorBalanceSheetDtos;
     }
 }
