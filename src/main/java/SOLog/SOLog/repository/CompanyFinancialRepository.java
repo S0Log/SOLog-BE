@@ -17,4 +17,11 @@ public interface CompanyFinancialRepository extends JpaRepository<CompanyFinanci
     Optional<CompanyFinancialEntity> findTopByCompanyNameAndDateBeforeNative(
             @Param("companyName") String companyName,
             @Param("date") Date date);
+    @Query(value = "SELECT * FROM company_financial_entity " +
+            "WHERE company_name = :companyName " +
+            "AND date <= :date " +
+            "ORDER BY date DESC " +
+            "LIMIT 1", nativeQuery = true)
+    CompanyFinancialEntity findClosestByCompanyNameAndDate(@Param("companyName") String companyName, @Param("date") Date date);
+
 }
