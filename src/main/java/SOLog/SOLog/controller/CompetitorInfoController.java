@@ -2,6 +2,7 @@ package SOLog.SOLog.controller;
 
 import SOLog.SOLog.domain.dto.CompetitorBalanceSheetDto;
 import SOLog.SOLog.domain.dto.CompetitorPriceDto;
+import SOLog.SOLog.domain.dto.CompetitorValuationDto;
 import SOLog.SOLog.service.CompetitorInfoService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -29,5 +30,11 @@ public class CompetitorInfoController {
     @Operation(summary = "경쟁사 비교 내 balanceSheet", description = "경쟁사들의 balanceSheet 정보 반환")
     public List<CompetitorBalanceSheetDto> competitorBalanceSheet(@PathVariable String companyName){
         return competitorInfoService.getCompetitorBalanceSheet(companyName);
+    }
+
+    @GetMapping("/{companyName}/valuation")
+    @Operation(summary = "경쟁사 배교 내 valuation", description = "경재사들의 valuation 정보 반환")
+    public List<CompetitorValuationDto> competitorValuation(@PathVariable String companyName) {
+        return competitorInfoService.getCompetitorValuation(companyName);
     }
 }
