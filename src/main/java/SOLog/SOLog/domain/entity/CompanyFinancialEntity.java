@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -21,7 +22,7 @@ public class CompanyFinancialEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "companyName")
     private CompanyEntity company;
-
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
     private String EPS;
     private String BPS;

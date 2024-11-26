@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -18,6 +19,7 @@ public class CompanyEntity {
     @Id
     private String companyName;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date listedDate;
 
     @Column(name = "overview",length = 1000)
