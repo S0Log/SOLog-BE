@@ -1,6 +1,7 @@
 package SOLog.SOLog.service;
 
 import SOLog.SOLog.domain.dto.ChartDataResponseDto;
+import SOLog.SOLog.domain.dto.TrendMatchChartResponseDto;
 import SOLog.SOLog.domain.entity.PriceDiffEntity;
 import SOLog.SOLog.domain.entity.StockDataEntity;
 import SOLog.SOLog.repository.PriceDiffRepository;
@@ -67,22 +68,22 @@ public class ChartServiceImpl implements ChartService {
                 ))
                 .collect(Collectors.toList());
     }
-    public List<ChartDataResponseDto>[] getTrendMatchStockData(String companyName, Date date1,Date date2, String duration) {
+    public TrendMatchChartResponseDto getTrendMatchStockData(String companyName, Date date1, Date date2, String duration) {
         List<PriceDiffEntity> data1 = priceDiffRepository.findPriceDiffByConditions(companyName,date1);// 기준 날짜
         List<PriceDiffEntity> data2 = priceDiffRepository.findPriceDiffByConditions(companyName,date2);// 찾고 싶은 이후 날짜
         data1.sort((o1, o2) -> o2.getDate().compareTo(o1.getDate()));//역순정렬
         data2.sort((o1, o2) -> o2.getDate().compareTo(o1.getDate()));///역순정렬
 
-        int period = 5;
+        Long period = 5L;
 
         if(Objects.equals(duration, "one")){
-            period = 5;
+            period = 5L;
         }
         else if(Objects.equals(duration, "two")){
-            period = 10;
+            period = 10L;
         }
         else{
-            period = 20;
+            period = 20L;
         }
         Date markingdate = null;
         for(int i=0;i<data2.size();i++) {
@@ -138,10 +139,12 @@ public class ChartServiceImpl implements ChartService {
             }
             chartDataList2.sort(Comparator.comparing(ChartDataResponseDto::getDate));
         }
-
-        return new List[]{chartDataList1, chartDataList2};
-
-
+        return new TrendMatchChartResponseDto(
+                new List[]{chartDataList1,chartDataList2},
+                markingdate,
+                date1,
+                period
+        );
 
     }
 
