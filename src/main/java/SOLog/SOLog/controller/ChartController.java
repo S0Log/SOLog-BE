@@ -3,6 +3,7 @@ package SOLog.SOLog.controller;
 import SOLog.SOLog.domain.dto.ChartDataResponseDto;
 import SOLog.SOLog.domain.dto.DurationChartRequestDto;
 import SOLog.SOLog.domain.dto.TrendMatchChartRequestDto;
+import SOLog.SOLog.domain.dto.TrendMatchChartResponseDto;
 import SOLog.SOLog.domain.entity.StockDataEntity;
 import SOLog.SOLog.service.ChartServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
@@ -33,7 +34,7 @@ public class ChartController {
     }
     @GetMapping("/trend-match")
     @Operation(summary = "과거비교", description = "과거비교 내 유사 차트 주가데이터 반환")
-    public List<ChartDataResponseDto>[] trendMatchChart(TrendMatchChartRequestDto requestDto){
+    public TrendMatchChartResponseDto trendMatchChart(TrendMatchChartRequestDto requestDto){
 
         return chartService.getTrendMatchStockData(requestDto.getCompanyName(),requestDto.getBaseDate(),requestDto.getStartDate(),requestDto.getPeriod());
 
