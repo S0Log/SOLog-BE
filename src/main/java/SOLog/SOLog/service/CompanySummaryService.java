@@ -15,7 +15,6 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class CompanySummaryService {
     private final StockDataRepository stockDataRepository;
-    private final CompanyFinancialRepository companyFinancialRepository;
 
     public CompanySummaryDto getCompanySummary(String companyName, Date date, String durationType) {
 
@@ -24,17 +23,14 @@ public class CompanySummaryService {
             throw new EntityNotFoundException("No stock data found for the given date.");
         }
 
-        CompanyFinancialEntity companyFinancialData = companyFinancialRepository.findClosestByCompanyNameAndDate(companyName, date);
-        if (companyFinancialData == null) {
-            throw new EntityNotFoundException("No financial data found for the given date.");
-        }
-
         return new CompanySummaryDto(
                 companyName,
                 date,
                 stockData.getVolume(),
-                companyFinancialData.getPER(),
-                companyFinancialData.getROE()
+                stockData.getHighPrice(),
+                stockData.getLowPrice(),
+                stockData.getOpenPrice(),
+                stockData.getClosePrice()
         );
     }
 }
