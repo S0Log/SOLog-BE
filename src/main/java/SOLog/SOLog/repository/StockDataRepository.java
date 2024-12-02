@@ -43,4 +43,9 @@ public interface StockDataRepository extends JpaRepository<StockDataEntity,Strin
 
     @Query("SELECT s FROM StockDataEntity s WHERE s.company.companyName = :companyName AND s.date = :date AND s.durationType= :type")
     StockDataEntity findByCompanyNameAndDateByDay(@Param("companyName") String companyName, @Param("date") Date date, @Param("type") String durationType);
+
+    @Query(value = "SELECT * FROM stock_data_entity s WHERE s.company_name = :companyName AND s.duration_type = 'day' ORDER BY s.date DESC LIMIT 2", nativeQuery = true)
+    List<StockDataEntity> findTop2ByCompanyNameAndDurationType(String companyName);
+
+
 }
