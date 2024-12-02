@@ -3,6 +3,7 @@ package SOLog.SOLog.controller;
 import SOLog.SOLog.domain.dto.*;
 import SOLog.SOLog.service.CompanyInfoDetailService;
 import SOLog.SOLog.service.CompanyInfoService;
+import SOLog.SOLog.service.IdentifierService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,7 @@ import java.util.Map;
 public class CompanyInfoController {
     private final CompanyInfoService companyInfoService;
     private final CompanyInfoDetailService companyInfoDetailService;
+    private final IdentifierService identifierService;
 
     @GetMapping("/{companyName}/companyOverview")
     @Operation(summary = "기업 개요", description = "기업정보 내 기업개요 정보 반환")
@@ -52,6 +54,18 @@ public class CompanyInfoController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.singletonMap("error", e.getMessage()));
         }
     }
+    @GetMapping("/identifier/{companyName}")
+    @Operation(summary = "기업번호", description = "기업명 입력받아 기업번호 반환")
+    public String companyIndentifier(@PathVariable String companyName){
+        return identifierService.getCompanyNum(companyName);
+    }
+
+    @GetMapping("{companyName}/daily")
+    @Operation(summary = "인사이트", description = "기본 정보 ")
+    public DailyInfoResponseDto dailyCompany(@PathVariable String companyName){
+        return companyInfoService.getDailyInfo(companyName);
+    }
+
 
 
 
