@@ -36,7 +36,7 @@ public class ChartController {
     @Operation(summary = "과거비교", description = "과거비교 내 유사 차트 주가데이터 반환")
     public TrendMatchChartResponseDto trendMatchChart(TrendMatchChartRequestDto requestDto){
 
-        return chartService.getTrendMatchStockData(requestDto.getCompanyName(),requestDto.getBaseDate(),requestDto.getStartDate(),requestDto.getPeriod());
+        return chartService.getTrendMatchStockData(requestDto.getCompanyName(),requestDto.getBaseDate(),requestDto.getPeriod());
 
     }
 
