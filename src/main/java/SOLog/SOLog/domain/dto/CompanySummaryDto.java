@@ -14,6 +14,8 @@ public class CompanySummaryDto {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date date;
     private long volume;
-    private String PER;
-    private String ROE;
+    private Long highPrice;
+    private Long lowPrice;
+    private Long openPrice;
+    private Long closePrice;
 }

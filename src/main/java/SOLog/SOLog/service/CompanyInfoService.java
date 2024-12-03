@@ -1,19 +1,17 @@
 package SOLog.SOLog.service;
 
 import SOLog.SOLog.domain.dto.CompanyOverviewDto;
+import SOLog.SOLog.domain.dto.DailyInfoResponseDto;
 import SOLog.SOLog.domain.dto.MarketShareDto;
 import SOLog.SOLog.domain.dto.SalesTrendRatioDto;
-import SOLog.SOLog.domain.entity.CompanyEntity;
-import SOLog.SOLog.domain.entity.MarketShareEntity;
-import SOLog.SOLog.domain.entity.SalesTrendRatioEntity;
-import SOLog.SOLog.repository.CompanyInfoRepository;
-import SOLog.SOLog.repository.MarketShareRepository;
-import SOLog.SOLog.repository.SalesTrendRatioRepository;
+import SOLog.SOLog.domain.entity.*;
+import SOLog.SOLog.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,6 +21,8 @@ public class CompanyInfoService {
     private final CompanyInfoRepository companyInfoRepository;
     private final MarketShareRepository marketShareRepository;
     private final SalesTrendRatioRepository salesTrendRatioRepository;
+    private final IdentifierRepository identifierRepository;
+    private final StockDataRepository stockDataRepository;
 
     // 기업개요
     public CompanyOverviewDto getCompanyOverview(String companyName) {
@@ -50,4 +50,17 @@ public class CompanyInfoService {
                 .map(entity -> new SalesTrendRatioDto(entity.getDate(), entity.getProductName().replace("?", " "), entity.getSalesPercent()))
                 .collect(Collectors.toList());
     }
+    public DailyInfoResponseDto getDailyInfo(String companyName) {
+        IdentifierEntity identifierEntity = identifierRepository.findByCompany_CompanyName(companyName);
+        List<StockDataEntity> stockDataEntities = stockDataRepository.findTop2ByCompanyNameAndDurationType(companyName);
+        Long priceminus1 = stockDataEntities.get(0).getClosePrice();
+        Long priceminus2 = stockDataEntities.get(1).getClosePrice();
+
+        DailyInfoResponseDto dailyInfoResponseDto = new DailyInfoResponseDto(identifierEntity.getCompanyNum(),"코스피",companyName,stockDataEntities.get(0).getClosePrice(),stockDataEntities.get(0).getClosePrice()-stockDataEntities.get(1).getClosePrice(),(priceminus1-priceminus2)/(double)priceminus2);
+
+
+        return dailyInfoResponseDto;
+
+    }
+
 }
