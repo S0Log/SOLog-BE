@@ -13,6 +13,6 @@ public class TrendMatchChartRequestDto {
     private String period;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date baseDate;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date startDate;
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
+//    private Date startDate;
 }

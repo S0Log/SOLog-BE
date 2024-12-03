@@ -14,4 +14,25 @@ public interface PriceDiffRepository extends JpaRepository<PriceDiffEntity,Long>
     @Query("SELECT p FROM PriceDiffEntity p WHERE p.company.companyName = :companyName AND p.date < :date")
     List<PriceDiffEntity> findPriceDiffByConditions(@Param("companyName") String companyName, @Param("date") Date date);
 
+
+    //baseData
+    @Query(value = """
+        SELECT * 
+        FROM price_diff_entity p
+        WHERE p.company_name = :companyName
+          AND p.date <= :date
+        ORDER BY p.date DESC
+        LIMIT :limit
+    """, nativeQuery = true)
+    List<PriceDiffEntity> findTopByCompanyAndDateBeforeNative(
+            @Param("companyName") String companyName,
+            @Param("date") Date date,
+            @Param("limit") Long limit
+    );
+
+
+
+    List<PriceDiffEntity> findPriceDiffByCompany_CompanyNameOrderByDateDesc(String companyName);
+
+
 }
