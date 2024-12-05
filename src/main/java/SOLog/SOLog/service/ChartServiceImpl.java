@@ -149,7 +149,7 @@ public class ChartServiceImpl implements ChartService {
             for (int j = 0; j < period; j++) {
                 sum += Math.pow(Math.abs(data1.get(j).getDiff() - data2.get(i + j).getDiff()), 2); //mse방식 유사도 검사
             }
-            if (sum <= checkSum*1.2) {//squared error에 padding값 1.2배수
+            if (sum <= checkSum) {
                 count++;
                 Date tempDate = data2.get(i).getDate();
                 markingDate.add(tempDate);
@@ -174,6 +174,7 @@ public class ChartServiceImpl implements ChartService {
 
             }
         }
+        System.out.println(count);
 
         return new TrendMatchChartResponseDto(
                 BaseChartDataList,similarDataList,markingDate,baseDate,period
