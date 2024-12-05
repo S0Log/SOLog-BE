@@ -25,7 +25,7 @@ public class CompanySummaryService {
 
         return new CompanySummaryDto(
                 companyName,
-                date,
+                stockData.getDate(),
                 stockData.getVolume(),
                 stockData.getHighPrice(),
                 stockData.getLowPrice(),
